@@ -71,6 +71,7 @@ func (h *Handler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
         },
     }
     fullResponse.SetPayload(payload)
+    fmt.Printf("%+v\n",fullResponse)
 
     s, err := xml.MarshalIndent(fullResponse, "  ", "    ")
     if (err != nil) {
@@ -104,13 +105,13 @@ func (h *Handler) dispatch(verb string, req *http.Request) (OaipmhResponsePayloa
 // Identify the repository
 func (h *Handler) identify(req *http.Request) (OaipmhResponsePayload, error) {
     return &OaipmhIdentify{
-        RepositoryName: "oaipmh-viewer served repository",
+        RepositoryName: "Norwegian Polar Institute's  OAI provider for Seadatanet metadata",
         BaseURL: "http://" + req.Host + "/",
         ProtocolVer: "2.0",
         EarliestDatestamp: MinTime.In(time.UTC).Format(time.RFC3339),
-        DeletedRecord: "transient",
+        DeletedRecord: "persistent",
         Granularity: "YYYY-MM-DDThh:mm:ssZ",
-        AdminEmail: "",
+        AdminEmail: "data@npolar.no",
     }, nil
 }
 

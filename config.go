@@ -88,8 +88,10 @@ type ExtProcess struct {
 
 // Invoke this external process configuration with the given Oaipmh record
 func (ep *ExtProcess) invokeWithRecord(rec *oaipmh.OaipmhRecord) error {
-    shell, hasShell := os.LookupEnv("SHELL")
-    if !hasShell {
+   // shell, hasShell := os.LookupEnv("SHELL")
+      shell := os.Getenv("SHELL")
+  //  if !hasShell {
+      if len(shell) > 0 {
         return errors.New("No SHELL defined")
     }
 
