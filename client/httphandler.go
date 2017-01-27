@@ -18,6 +18,8 @@ import (
 // Handler verb
 type handlerVerb    func(req *http.Request) (OaipmhResponsePayload, error)
 
+
+
 // A OAI-PMH handler.  This can be used to host a repository as a OAI-PMH provider.
 //
 type Handler struct {
@@ -64,6 +66,8 @@ func (h *Handler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
     }
 
     fullResponse := &OaipmhResponse{
+        SchemaLoc: schemaloc,
+        Xsi: xsi,
         Date: time.Now().In(time.UTC),
         Request: OaipmhResponseRequest{
             Host: "http://" + req.Host + "/",
@@ -71,7 +75,6 @@ func (h *Handler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
         },
     }
     fullResponse.SetPayload(payload)
-    fmt.Printf("%+v\n",fullResponse)
 
     s, err := xml.MarshalIndent(fullResponse, "  ", "    ")
     if (err != nil) {
@@ -104,6 +107,7 @@ func (h *Handler) dispatch(verb string, req *http.Request) (OaipmhResponsePayloa
 
 // Identify the repository
 func (h *Handler) identify(req *http.Request) (OaipmhResponsePayload, error) {
+
     return &OaipmhIdentify{
         RepositoryName: "Norwegian Polar Institute's  OAI provider for Seadatanet metadata",
         BaseURL: "http://" + req.Host + "/",

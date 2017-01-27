@@ -8,12 +8,16 @@ import (
     "encoding/xml"
 )
 
+var schemaloc string = "http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd"
+var xsi string = "http://www.w3.org/2001/XMLSchema-instance"
 
 type OaipmhResponsePayload interface{}
 
 
 type OaipmhResponse struct {
     XMLName         xml.Name                `xml:"http://www.openarchives.org/OAI/2.0/ OAI-PMH"`
+    SchemaLoc       string                  `xml:"xsi:schemaLocation,attr"`
+    Xsi             string                  `xml:"xmlns:xsi,attr"`
     Date            time.Time               `xml:"responseDate"`
     Request         OaipmhResponseRequest   `xml:"request"`
 
@@ -26,6 +30,8 @@ type OaipmhResponse struct {
     ListRecords             *OaipmhListRecords
     GetRecord               *OaipmhGetRecord
 }
+
+
 
 func (res *OaipmhResponse) SetPayload(p OaipmhResponsePayload) {
     switch r := p.(type) {
