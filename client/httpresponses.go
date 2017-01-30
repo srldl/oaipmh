@@ -71,7 +71,7 @@ type OaipmhError struct {
 type OaipmhIdentify struct {
     XMLName         xml.Name                `xml:"Identify"`
     RepositoryName  string                  `xml:"repositoryName"`
-    BaseURL         string                  `xml:"baseUrl"`
+    BaseURL         string                  `xml:"baseURL"`
     ProtocolVer     string                  `xml:"protocolVersion"`
     AdminEmail      string                  `xml:"adminEmail"`
     EarliestDatestamp string                `xml:"earliestDatestamp"`
