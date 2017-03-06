@@ -9,7 +9,10 @@ import (
 )
 
 var schemaloc string = "http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd"
+var schemalocSet string = "http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd"
 var xsi string = "http://www.w3.org/2001/XMLSchema-instance"
+var oai_dc string = "http://www.openarchives.org/OAI/2.0/oai_dc/"
+var dc string = "http://purl.org/dc/elements/1.1/"
 
 type OaipmhResponsePayload interface{}
 
@@ -105,12 +108,13 @@ type OaipmhListRecords struct {
     ResumptionToken string                  `xml:"resumptionToken,omitempty"`
 }
 
+
 // Header
 type OaipmhHeader struct {
     Identifier      string                  `xml:"http://www.openarchives.org/OAI/2.0/ identifier"`
     DateStamp       time.Time               `xml:"http://www.openarchives.org/OAI/2.0/ datestamp"`
     SetSpec         []string                `xml:"http://www.openarchives.org/OAI/2.0/ setSpec"`
-    Status          string                  `xml:"status,attr"`
+    Status          string                  `xml:"status,omitempty"`
 }
 
 func RecordToOaipmhHeader(rec *Record) OaipmhHeader {
@@ -158,9 +162,15 @@ type OaipmhSet struct {
 }
 
 type OaipmhSetDescr struct {
-    OaiDC       OaipmhOaiDC                 `xml:"http://www.openarchives.org/OAI/2.0/oai_dc/ dc"`
+    OaiDC           OaipmhOaiDC             `xml:"http://www.openarchives.org/OAI/2.0/oai_dc/ oai_dc:dc"`
+    OaiDC2          string                  `xml:"xmlns:oai_dc,attr"`
+    DC              string                  `xml:"xmlns:dc,attr"`
 }
 
 type OaipmhOaiDC struct {
-    Descr       string                      `xml:"description"`
+    SchemalocSet    string                  `xml:"xsi:schemaLocation,attr"`
+    Title           string                  `xml:"dc:title"`
+    Creator         string                  `xml:"dc:creator"`
+    Descr           string                  `xml:"dc:description"`
+
 }

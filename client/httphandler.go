@@ -11,7 +11,6 @@ import (
     "fmt"
     "strings"
     "strconv"
-
     "github.com/nu7hatch/gouuid"
 )
 
@@ -140,7 +139,7 @@ func (h *Handler) listSets(req *http.Request) (OaipmhResponsePayload, error) {
     // Convert the sets into OAI-PMH sets.
     oaipmhSets := make([]OaipmhSet, len(sets))
     for i, set := range sets {
-        oaipmhSets[i] = OaipmhSet{set.Spec, set.Name, OaipmhSetDescr{OaipmhOaiDC{set.Descr}}}
+        oaipmhSets[i] = OaipmhSet{set.Spec, set.Name, OaipmhSetDescr{OaipmhOaiDC{"http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd",  "Cruise record from Norwegian Polar Institute", "Norwegian Polar Institute", set.Descr}, "http://www.openarchives.org/OAI/2.0/oai_dc/", "http://purl.org/dc/elements/1.1/" }}
     }
 
     return &OaipmhListSets {

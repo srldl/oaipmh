@@ -6,7 +6,6 @@ import (
     "fmt"
     "os"
     "time"
-
     "github.com/lmika-bom/oaipmh/client"
 )
 
@@ -38,7 +37,7 @@ type RecordResult struct {
 }
 
 func (r *RecordResult) AsHeaderResult() *HeaderResult {
-    return &HeaderResult{&(r.Header), r.Deleted}
+    return &HeaderResult{&(r.Header), false}
 }
 
 func (r *RecordResult) Identifier() string {
@@ -242,5 +241,5 @@ func (op *OaipmhSession) GetRecord(id string) (*oaipmh.OaipmhRecord, error) {
 
 // Converts an OaipmhRecord into a RecordResult
 func RecordToRecordResult(r *oaipmh.OaipmhRecord) *RecordResult {
-    return &RecordResult{ r.Header, r.Content.Xml, r.Header.Status == "deleted" }
+   return &RecordResult{ r.Header, r.Content.Xml, r.Header.Status == "deleted" }
 }

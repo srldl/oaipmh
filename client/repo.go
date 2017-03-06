@@ -21,7 +21,7 @@ type Repository interface {
     // Returns a list of formats managed by this repository.
     Formats() []Format
 
-    // Returns a record cursor which can be used for moving through the list of records over the 
+    // Returns a record cursor which can be used for moving through the list of records over the
     // repository.
     //      set     The set to return or "" if not specified.
     //      from    The time to start listing records from, or MIN_TIME if not specified.
@@ -84,6 +84,7 @@ type Format struct {
 type Set struct {
     Spec        string
     Name        string
+    Creator     string
     Descr       string
 }
 

@@ -76,7 +76,8 @@ func (fr *FileRepository) Sets() ([]Set, error) {
             sets = append(sets, Set{
                 Spec: subdir.Name(),
                 Name: subdir.Name(),
-                Descr: "",
+                Descr: "Cruise records from Norwegian Polar Institute",
+                Creator: "Norwegian Polar Institute",
             })
         }
     }
