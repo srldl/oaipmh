@@ -14,6 +14,9 @@ import (
 // Host command
 //      Starts a HTTP OAI-PMH endpoint
 
+//const baseDir string = "/home/oaipmh/servers"
+const baseDir string = "."
+
 type HostCommand struct {
     Ctx             *Context
 }
@@ -25,7 +28,7 @@ func (gc *HostCommand) Flags(fs *flag.FlagSet) *flag.FlagSet {
 func (gc *HostCommand) Run(args []string) {
     bindUrl := gc.Ctx.Provider.Url
 
-    repo := oaipmh.NewFileRepository(".")
+    repo := oaipmh.NewFileRepository(baseDir)
     handler := oaipmh.NewHandler(repo)
 
     server := &http.Server{
